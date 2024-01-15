@@ -1,12 +1,34 @@
 package ru.dolbak.blackjack;
 
+import static java.lang.Math.abs;
+
+import java.util.Random;
+
 class Deck{
     int pointer = 0;
     Card[] cards = new Card[52];
-    //TODO: конструктор, в котором перемешиваются карты
-    // создать карту - вызвать new Card(Rate, Suit)
+    public  Deck() {
+        Suit[] suits = {Suit.Clubs,Suit.Spades,Suit.Hearts,Suit.Diamonds};
+        Rate[] rates = {Rate.TWO,Rate.THREE,Rate.FOUR,Rate.FIVE,Rate.SIX,Rate.SEVEN,Rate.EIGHT,Rate.NINE,Rate.JACK,Rate.QUEEN,Rate.KING,Rate.ACE};
+        for (int i =0; i< suits.length; i++){
+            for (int j=0; j< rates.length; j++){
+                cards[i*13 + j] = new Card(rates[j], suits[i]);
+            }
+        }
+        Random rnd = new Random();
+        for (int i =0; i< cards.length; i++){
+            int r = abs(rnd.nextInt()) % (cards.length-1);
+            Card t = cards[r];
+            cards[r]=cards[cards.length-i-1];
+            cards[cards.length-i-1]=t;
+        }
+}
+    public Card take() {
+        pointer++;
+        return cards[pointer -1];
 
-    //TODO:" функция take() - взять карту из колоды
+    }
+
 }
 
 enum Suit{
@@ -47,9 +69,9 @@ class Card{
     public Card(Rate rate, Suit suit){
         this.rate = rate;
         this.suit = suit;
+        this.points = rate.getPoints();
     }
 
-    //TODO: в points записать очки карты
 }
 
 class Game{
