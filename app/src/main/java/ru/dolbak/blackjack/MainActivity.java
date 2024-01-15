@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         } else if (dealerPoints>21) {
             gameResultTextView.setText("победа");
             gameResultTextView.setTextColor(Color.GREEN);
-            //победа
         } else if (dealerPoints > playersPoints) {
             gameResultTextView.setText("поражение");
             gameResultTextView.setTextColor(Color.RED);
